@@ -12,8 +12,8 @@ export const getById = async (req, res) => {
 };
 
 export const create = async (req, res) => {
-  const { name, type, isActive } = req.body;
-  const newProject = new projectModel({ name, type, isActive });
+  const { title, category, tags, shortDescription, longDescription, status } = req.body;
+  const newProject = new projectModel({ title, category, tags, shortDescription, longDescription, status });
   await newProject.save();
   res.status(201).send({ status: 'Ok', data: newProject });
 };
