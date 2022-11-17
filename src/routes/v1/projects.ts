@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getAll, getById, create, update, deleteById } from "../../controllers/projects";
+import { upload } from "../../utils/uploads";
 
 const router = Router();
 
@@ -7,7 +8,7 @@ router.get('/', getAll);
 
 router.get('/:_id', getById);
 
-router.post('/', create);
+router.post('/', upload.single('img'), create);
 
 router.patch('/:_id', update);
 

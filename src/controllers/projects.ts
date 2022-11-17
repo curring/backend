@@ -1,4 +1,5 @@
 import projectModel from '../models/projects-schema';
+import { v2 as cloudinary } from 'cloudinary';
 
 export const getAll = async (req, res) => { 
   const allData = await projectModel.find();
@@ -13,7 +14,23 @@ export const getById = async (req, res) => {
 
 export const create = async (req, res) => {
   const { title, category, tags, shortDescription, longDescription, status } = req.body;
-  const newProject = new projectModel({ title, category, tags, shortDescription, longDescription, status });
+  if(!req.file) return
+  const uploadImg = await cloudinary.uploader.upload(req.file.path,
+    { 
+      folder: 'projects'
+    });
+  const newProject = new projectModel({ 
+    imgs: {
+      public_id: uploadImg.original_filename,
+      url: uploadImg.url
+    },
+    title, 
+    category, 
+    tags, 
+    shortDescription, 
+    longDescription, 
+    status 
+  });
   await newProject.save();
   res.status(201).send({ status: 'Ok', data: newProject });
 };
