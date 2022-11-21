@@ -2,7 +2,9 @@ import { Schema, model } from "mongoose";
 
 
 const projectSchema = new Schema({
-  imgs: {},
+  imgs: {
+    type: Array
+  },
   title: {
     type: String,
     require: true,

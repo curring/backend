@@ -11,5 +11,10 @@ export const upload = multer({
             const fileName = file.originalname.split(fileExtension)[0];
             callback(null, `${fileName}-${Date.now()}${fileExtension}`)
           }
-        })
+        }),
+  fileFilter: (req, file, callback) => {
+    file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' 
+    ? callback(null, true) 
+    : callback(null, false)
+  }
 });

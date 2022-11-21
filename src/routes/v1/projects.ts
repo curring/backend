@@ -8,7 +8,7 @@ router.get('/', getAll);
 
 router.get('/:_id', getById);
 
-router.post('/', upload.single('img'), create);
+router.post('/', upload.array('img', 2), create);
 
 router.patch('/:_id', update);
 
